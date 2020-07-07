@@ -10,7 +10,6 @@ const Spinner = styled.div`
 `
 
  const Loading = (props) => {
-     console.log(props)
     return (
         <Spinner>
         <img src={logo} alt="loading..." />

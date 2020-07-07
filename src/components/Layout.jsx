@@ -1,23 +1,32 @@
 import React from 'react'
-import NavBar from './NavBar'
-import Footer from './Footer'
-import styled,{ThemeProvider} from 'styled-components'
+import NavBar from './Navbar/NavBar'
+import Footer from './Footer/Footer'
+import styled, {ThemeProvider} from 'styled-components'
 
 const theme = {
-    maxWidht:'1000px'
+    maxWidth:'1000px',
+    buttonColor:'#fff',
+    navBar: '#1A1A1D',
+    footer:'#333'
   }
   
-
 
 const Layout = (props) => {
     return (
         <ThemeProvider theme={theme}>
         <div>
             <NavBar />
-            {props.children}
+            <Container>{props.children}</Container>
             <Footer />
         </div>
         </ThemeProvider>
     )
 }
 export default Layout
+
+
+
+const Container = styled.div`
+  width:1000px;
+  margin: 0 auto;
+`

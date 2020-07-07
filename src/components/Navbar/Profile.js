@@ -1,7 +1,7 @@
 import React, { Fragment } from "react";
-import { useAuth0 } from "../react-auth0-spa";
+import { useAuth0 } from "../../react-auth0-spa";
 import { useMutation, gql } from  '@apollo/client'
-import Loading from '../utils/Loading';
+import Loading from '../../utils/Loading';
 
 const TESZT = gql`
 mutation {

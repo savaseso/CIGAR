@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+/* import React, {Component} from 'react';
 
 import ImageGallery from 'react-image-gallery';
  
@@ -24,3 +24,4 @@ class ImageSlider extends React.Component {
 }
 
 export default ImageSlider;
+ */

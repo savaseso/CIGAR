@@ -1,9 +1,9 @@
  import React from 'react'
 import { useQuery,useMutation, gql } from  '@apollo/client'
  import { Redirect, Route } from 'react-router'
-import { useAuth0 } from "../react-auth0-spa";
+import { useAuth0 } from "../../react-auth0-spa";
 import Product from './Product'
-import Loading from '../utils/Loading';
+import Loading from '../../utils/Loading';
 
 
 
