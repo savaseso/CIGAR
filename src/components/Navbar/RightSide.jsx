@@ -17,14 +17,14 @@ export default function RightSide() {
                 <ProfilePicture src={user.picture} alt="Profile Picture" />
 
                <Button name={'Logout'} action={logout} /> 
-                <ShoppingCart />
+               <Link to='/cart'><ShoppingCart /></Link>
             </Container>
         )
     } else {
         return (
         <Container>
             <LoginStyle name={'Login/Signup'} action={loginWithRedirect} />
-            <ShoppingCart />
+            <Link to='/cart'><ShoppingCart /></Link>
         </Container>
         )
     }

@@ -12,13 +12,14 @@ mutation {
 `
 
 const Profile = (props) => {
-  const { loading, user } = useAuth0();
+  const {isAuthenticated, loading, user,loginWithRedirect } = useAuth0();
   const [payment,{error, data}] = useMutation(TESZT);
   
 
-  if (loading || !user) {
+  if (loading) {
     return <Loading />;
   }
+console.log(isAuthenticated)
   if (user){
      return (
        
@@ -42,6 +43,10 @@ const Profile = (props) => {
        
       )  
   }
+  if(!isAuthenticated){
+    return loginWithRedirect()
+  }
+ 
 
   
 };

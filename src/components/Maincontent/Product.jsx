@@ -1,13 +1,31 @@
 import React from 'react'
 import styled from 'styled-components'
+import { useMutation, useApolloClient, gql } from '@apollo/client'
 
 
+const ITEM = gql`
+mutation ($id:name!) {
+  createCartItem(product_id: $id, quantity: 1) {
+    id
+  }
+  }
+`; 
 
- const Product = ({product}) => {
+ const Product = ({product,}) => {
+  
+  const [addCartItem,{loading, error, data}] = useMutation(ITEM);
     return (
         <Card>
           {/* <img srcSet={product.image} alt={product.name} /> */}
           <p>{product.name}</p>  
+          <button
+           onClick={()=>{
+             console.log(product.id)
+              addCartItem({variables:{id:`${product.id}`}})
+                .then(()=> console.log('item added to the cart'))
+                .catch((e)=>console.log(e)) 
+            }}
+            >Add to Cart</button>
         </Card>
     )
 }
