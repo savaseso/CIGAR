@@ -12,7 +12,6 @@ const Pagination = (props) => {
   const page = props.page;
   return (
     <div>
-
       Page {page} of {pages}
       {pages === 1 || page === pages ? null : <button disabled={pages === page ? true : null}
         onClick={() => {
