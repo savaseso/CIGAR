@@ -22,11 +22,13 @@ query {
 
 
 const Products = ({ searchResult }) => {
-
-
   const { loading, error, data } = useQuery(CIGARS);
   const [page, setPage] = useState(1)
-  const [postPerPage, setPostPerPage] = useState(10)
+  const [postPerPage] = useState(10)
+
+  useEffect(() => {
+      setPage(1)
+  },[searchResult]);
 
   if (loading) return <Loading />
   if (error) return <p>Error...</p>
@@ -37,11 +39,11 @@ const Products = ({ searchResult }) => {
 
   const renderCigars = (cigars) => {
     return (
-      <div> 
+      <Container> 
         <Cards>
           {cigars.slice(indexOfFirstPost, indexOfLastPost).map(product => <Product key={product.id} product={product} />)}
         </Cards>
-      </div>)
+      </Container>)
   }
 
   if (searchResult !== null && searchResult.length === 0) {
@@ -52,7 +54,6 @@ const Products = ({ searchResult }) => {
   return (
     <div>
       <Pagination page={page} postPerPage={postPerPage} setPage={setPage} cigars={searchResult || data.products} />
-
       {renderCigars(searchResult || data.products)}
     </div>)
 }
@@ -61,7 +62,9 @@ const Products = ({ searchResult }) => {
 
 export default Products;
 
-
+const Container = styled.section`
+  height: 25rem;
+`
 const Cards = styled.section`
   display: grid;
   grid-template-columns: 1fr 1fr;
