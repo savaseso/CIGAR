@@ -4,11 +4,14 @@ import { Link } from "react-router-dom";
 
 
 
-const LeftSide = () => {
+
+const LeftSide = ({inputVal, onChange, onSearch}) => {
+  console.log(inputVal)
     return (
         <Container>
           <Link to="/"><Logo src='../public\img\tobacco-products-logo.jpg' /></Link>&nbsp;
-          <Input type='search' placeholder='Search for a cigar' />
+          <Input type='search' value={inputVal} onChange={onChange} placeholder='Search for a cigar' />
+          <button onClick={onSearch}>Search</button>
         </Container>
     )
 }

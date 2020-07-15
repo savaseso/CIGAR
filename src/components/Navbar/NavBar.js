@@ -1,5 +1,4 @@
 import React from 'react'
-import styled from 'styled-components'
 import { Cart } from '@styled-icons/boxicons-regular/Cart'
 import LeftSide from './LeftSide'
 import Nav from '../Navbar/styles/Navstyles'
@@ -7,11 +6,11 @@ import RightSide from './RightSide'
 
 
 
-const NavBar = () => {
- 
+const NavBar = ({inputVal, onChange, onSearch}) => {
+  
     return (
       <Nav>
-        <LeftSide />  
+        <LeftSide inputVal={inputVal} onChange={onChange} onSearch={onSearch} />  
         <RightSide />
       </Nav>
     )

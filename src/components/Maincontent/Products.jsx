@@ -1,54 +1,71 @@
- import React from 'react'
-import { useQuery,useMutation, gql } from  '@apollo/client'
- import { Redirect, Route } from 'react-router'
-import { useAuth0 } from "../../react-auth0-spa";
+import React, { useState, useEffect } from 'react'
+import { useQuery, useMutation, useApolloClient, gql } from '@apollo/client'
 import Product from './Product'
 import Loading from '../../utils/Loading';
+import styled from 'styled-components'
+import Pagination from './Pagination'
 
 
 
 const CIGARS = gql`
 query {
   products {
-    image
-    name
-    price
-    brand_id
-  }
+      id
+      brand_id
+      image
+      name
+      price
+    }
+    
   }
 `;
 
 
-const Products = (props) => {
-     const { loading, error, data } = useQuery(CIGARS);
-    const {  isAuthenticated } = useAuth0();
+const Products = ({ searchResult }) => {
 
-    if(loading) return <Loading />
-    console.log(error)
-    if(error) return <p>Error...</p>
-    
-    if(isAuthenticated){
-        console.log(isAuthenticated)
-        console.log(data)
-        return data.products.map(product => <Product key={product.id} product={product}/>)
-    } else {
+
+  const { loading, error, data } = useQuery(CIGARS);
+  const [page, setPage] = useState(1)
+  const [postPerPage, setPostPerPage] = useState(10)
+
+  if (loading) return <Loading />
+  if (error) return <p>Error...</p>
+
+  const indexOfLastPost = page * postPerPage
+  const indexOfFirstPost = indexOfLastPost - postPerPage
+
+
+  const renderCigars = (cigars) => {
     return (
-        <div>
-          
-                  {data.products.map(product => {
-                      
-                  return <div>
-                      <img key={product.id} src={product.image} alt="" srcset=""/>
-                    <p>nem</p> 
-                  </div> 
+      <div> 
+        <Cards>
+          {cigars.slice(indexOfFirstPost, indexOfLastPost).map(product => <Product key={product.id} product={product} />)}
+        </Cards>
+      </div>)
+  }
 
-                })} 
+  if (searchResult !== null && searchResult.length === 0) {
+    return <p>No Results</p>
+  }
 
-                hi
-        </div>
-    )
-            }
-} 
+
+  return (
+    <div>
+      <Pagination page={page} postPerPage={postPerPage} setPage={setPage} cigars={searchResult || data.products} />
+
+      {renderCigars(searchResult || data.products)}
+    </div>)
+}
+
 
 
 export default Products;
+
+
+const Cards = styled.section`
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-gap: 60px; 
+  max-width: ${props => props.theme.maxWidth};
+  margin: 0 auto;
+`

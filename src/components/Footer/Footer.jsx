@@ -6,7 +6,7 @@ import styled from 'styled-components'
  const Footer = (props) => {
     return (
         <Container>
-            ez lesz a footer
+            Footer
         </Container>
     )
 }
