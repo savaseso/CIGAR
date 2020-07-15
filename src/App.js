@@ -19,7 +19,7 @@ const App = () => {
   if (loading) {
     return <Loading />;
   }
-  if (error) { console.log(error) }
+  if (error) { throw(error) }
   return (
 
     <Router>
