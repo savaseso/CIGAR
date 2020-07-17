@@ -15,6 +15,9 @@ const SEARCH = gql`
     image
     name
     price
+    products_inventory {
+      stock_available
+    }
   }
 }
 `

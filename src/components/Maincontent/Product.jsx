@@ -1,6 +1,7 @@
 import React from 'react'
 import styled from 'styled-components'
 import { useMutation, useApolloClient, gql } from '@apollo/client'
+import { useAuth0 } from "../../react-auth0-spa";
 
 
 const ITEM = gql`
@@ -12,15 +13,20 @@ mutation ($id:name!) {
 `; 
 
  const Product = ({product,}) => {
-  
+  const { isAuthenticated, loginWithRedirect } = useAuth0();
   const [addCartItem,{loading, error, data}] = useMutation(ITEM);
+  const { stock_available } = product.products_inventory
     return (
         <Card>
-          {/* <img srcSet={product.image} alt={product.name} /> */}
+          <CardImage srcSet={product.image} alt={product.name} />
           <p>{product.name}</p>  
+          <p>{product.price}</p>  
+          <p>Availability:<Stock stock={stock_available}> {stock_available > 0 ? 'In Stock' : 'Out of Stock' }</Stock></p>
           <button
            onClick={()=>{
-             console.log(product.id)
+              if(!isAuthenticated){
+                return loginWithRedirect()
+              }
               addCartItem({variables:{id:`${product.id}`}})
                 .then(()=> console.log('item added to the cart'))
                 .catch((e)=>console.log(e)) 
@@ -36,7 +42,7 @@ export default Product;
 
 const Card = styled.div`
 
-     height: 15rem; 
+     height: 16rem; 
     /*background: red;*/
     border: 2px solid #e7e7e7;
     border-radius: 4px;
@@ -50,7 +56,14 @@ const Card = styled.div`
     flex-direction: column;
     position: relative;
     color: #5d5e5e; 
-  
+`
+const CardImage = styled.img`
+  width:150px;
+  height:150px;
+   
+`
 
+const Stock = styled.span`
+ color: ${props => props.stock > 0 ? 'green' : 'red'}
 
 `

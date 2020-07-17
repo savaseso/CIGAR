@@ -5,6 +5,7 @@
   "dependencies": {
     "@apollo/client": "^3.0.0-beta.50",
     "@apollo/link-context": "^2.0.0-beta.3",
+    "@apollo/link-ws": "^2.0.0-beta.3",
     "@auth0/auth0-spa-js": "^1.9.0",
     "@testing-library/jest-dom": "^4.2.4",
     "@testing-library/react": "^9.5.0",
@@ -23,7 +24,8 @@
     "react-router-dom": "^5.2.0",
     "react-scripts": "3.4.1",
     "styled-components": "^5.1.1",
-    "styled-icons": "^10.6.0"
+    "styled-icons": "^10.6.0",
+    "subscriptions-transport-ws": "^0.9.17"
   },
   "scripts": {
     "start": "react-scripts start",

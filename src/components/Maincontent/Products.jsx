@@ -15,8 +15,10 @@ query {
       image
       name
       price
+      products_inventory {
+      stock_available
     }
-    
+  }
   }
 `;
 
@@ -25,6 +27,7 @@ const Products = ({ searchResult }) => {
   const { loading, error, data } = useQuery(CIGARS);
   const [page, setPage] = useState(1)
   const [postPerPage] = useState(10)
+  console.log(data)
 
   useEffect(() => {
       setPage(1)
@@ -55,6 +58,7 @@ const Products = ({ searchResult }) => {
     <div>
       <Pagination page={page} postPerPage={postPerPage} setPage={setPage} cigars={searchResult || data.products} />
       {renderCigars(searchResult || data.products)}
+      <Pagination page={page} postPerPage={postPerPage} setPage={setPage} cigars={searchResult || data.products} />
     </div>)
 }
 
@@ -63,7 +67,7 @@ const Products = ({ searchResult }) => {
 export default Products;
 
 const Container = styled.section`
-  height: 25rem;
+ /*  height: 25rem; */
 `
 const Cards = styled.section`
   display: grid;
