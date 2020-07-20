@@ -2,6 +2,8 @@ import React from 'react'
 import styled from 'styled-components'
 import { useMutation, useApolloClient, gql } from '@apollo/client'
 import { useAuth0 } from "../../react-auth0-spa";
+import { useHistory } from "react-router-dom";
+
 
 
 const ITEM = gql`
@@ -12,22 +14,26 @@ mutation ($id:name!) {
   }
 `; 
 
- const Product = ({product,}) => {
+ const Product = (props) => {
   const { isAuthenticated, loginWithRedirect } = useAuth0();
   const [addCartItem,{loading, error, data}] = useMutation(ITEM);
-  const { stock_available } = product.products_inventory
+  let history = useHistory();
+  const { stock_available } = props.product.products_inventory
+  const { name, price, id, image  } = props.product
     return (
         <Card>
-          <CardImage srcSet={product.image} alt={product.name} />
-          <p>{product.name}</p>  
-          <p>{product.price}</p>  
+          <div onClick={()=>history.push(`/details/${id}`)}>
+          <CardImage srcSet={image} alt={name} />
+          <p>{name}</p>  
+          <p>{price}</p>  
           <p>Availability:<Stock stock={stock_available}> {stock_available > 0 ? 'In Stock' : 'Out of Stock' }</Stock></p>
+          </div>
           <button
            onClick={()=>{
               if(!isAuthenticated){
                 return loginWithRedirect()
               }
-              addCartItem({variables:{id:`${product.id}`}})
+              addCartItem({variables:{id:`${id}`}})
                 .then(()=> console.log('item added to the cart'))
                 .catch((e)=>console.log(e)) 
             }}
@@ -42,7 +48,8 @@ export default Product;
 
 const Card = styled.div`
 
-     height: 16rem; 
+     height: 20rem;
+     width:22rem; 
     /*background: red;*/
     border: 2px solid #e7e7e7;
     border-radius: 4px;
@@ -58,8 +65,8 @@ const Card = styled.div`
     color: #5d5e5e; 
 `
 const CardImage = styled.img`
-  width:150px;
-  height:150px;
+  width:170px;
+  height:170px;
    
 `
 

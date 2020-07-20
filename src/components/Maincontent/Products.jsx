@@ -27,7 +27,6 @@ const Products = ({ searchResult }) => {
   const { loading, error, data } = useQuery(CIGARS);
   const [page, setPage] = useState(1)
   const [postPerPage] = useState(10)
-  console.log(data)
 
   useEffect(() => {
       setPage(1)
@@ -42,11 +41,10 @@ const Products = ({ searchResult }) => {
 
   const renderCigars = (cigars) => {
     return (
-      <Container> 
         <Cards>
           {cigars.slice(indexOfFirstPost, indexOfLastPost).map(product => <Product key={product.id} product={product} />)}
         </Cards>
-      </Container>)
+      )
   }
 
   if (searchResult !== null && searchResult.length === 0) {
@@ -55,11 +53,12 @@ const Products = ({ searchResult }) => {
 
 
   return (
-    <div>
+    <Container> 
       <Pagination page={page} postPerPage={postPerPage} setPage={setPage} cigars={searchResult || data.products} />
       {renderCigars(searchResult || data.products)}
       <Pagination page={page} postPerPage={postPerPage} setPage={setPage} cigars={searchResult || data.products} />
-    </div>)
+    </Container>
+  )
 }
 
 
@@ -67,12 +66,17 @@ const Products = ({ searchResult }) => {
 export default Products;
 
 const Container = styled.section`
- /*  height: 25rem; */
+  max-width: ${props=> props.theme.maxWidth};
+  margin: 1rem auto;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  flex-direction:column;
 `
 const Cards = styled.section`
   display: grid;
   grid-template-columns: 1fr 1fr;
   grid-gap: 60px; 
-  max-width: ${props => props.theme.maxWidth};
-  margin: 0 auto;
+ /*  max-width: ${props => props.theme.maxWidth}; */
+  margin: 2rem auto;
 `

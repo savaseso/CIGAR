@@ -19,7 +19,7 @@ const Profile = (props) => {
   if (loading) {
     return <Loading />;
   }
-console.log(isAuthenticated)
+console.log(user.sub)
   if (user){
      return (
        

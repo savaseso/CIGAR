@@ -35,18 +35,19 @@ const AuthorizedApolloProvider = ({ children }) => {
     }
   });
 
-
   const wsLink = new WebSocketLink({
     uri: `ws://${GRAPHQL_ENDPOINT}`,
     options: {
       reconnect: true,
       connectionParams: async () => {
         const token = await getIdTokenClaims();
+        if(token){
                 return {
                     headers: {
                         Authorization: `Bearer ${token.__raw}`,
                     }
       }
+    }
     }
   }});
 
