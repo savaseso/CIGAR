@@ -79,4 +79,7 @@ const Cards = styled.section`
   grid-gap: 60px; 
  /*  max-width: ${props => props.theme.maxWidth}; */
   margin: 2rem auto;
+/*   @media (max-width: 775x) {
+    grid-template-columns: 1fr important!;
+    } */
 `

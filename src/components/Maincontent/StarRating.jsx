@@ -3,7 +3,7 @@ import StarRatings from '../../../node_modules/react-star-ratings';
 import { useQuery, useMutation, useSubscription, useApolloClient, gql } from '@apollo/client';
 import { useAuth0 } from "../../react-auth0-spa";
 import { Data } from 'styled-icons/boxicons-solid';
-
+import {calculateAverage} from '../../utils/calculateAverage'
 
 
 const RATING = gql`
@@ -53,25 +53,20 @@ const StarRating = (props) => {
             .catch((e)=>alert('You already rated this product')) 
         
     }
- 
-    const calculateAverage = (arr) => {
-        console.log('fut')
-        const total = arr.reduce((accumulator, currentValue) => {
-            return accumulator + currentValue.rating
-        }, 0);
-        return total / arr.length
-    }
-
-
 
     return (
+       
         <StarRatings
             rating={rating}
-            starRatedColor="yellow"
-            changeRating={isAuthenticated ? changeRating : null}
+            starRatedColor="#FED700"
+            starHoverColor="#FED700"
+            starDimension="20px"
+            starSpacing="1px"
+            changeRating={isAuthenticated ? props.noRatings ? null : changeRating : null}
             numberOfStars={5}
             name='rating'
         />
+  
     );
 }
 export default StarRating

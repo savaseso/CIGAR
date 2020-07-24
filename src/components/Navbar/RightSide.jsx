@@ -13,7 +13,7 @@ export default function RightSide() {
         return (
             <Container>
                 <Link to="/profile">My Account</Link>
-                <span>Welcome {user.nickname}</span>
+                <Welcome>Welcome {user.nickname}</Welcome>
                 <ProfilePicture src={user.picture} alt="Profile Picture" />
 
                <Button name={'Logout'} action={logout} /> 
@@ -58,4 +58,7 @@ const ProfilePicture = styled.img`
     height:20px;
     width:25px;
     border-radius:50%;
+`
+const Welcome = styled.span`
+    color:#E7E7E8;
 `
