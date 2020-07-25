@@ -32,7 +32,7 @@ const Products = ({ searchResult }) => {
       setPage(1)
   },[searchResult]);
 
-  if (loading) return <Loading />
+  if (loading) return <p>loading</p>
   if (error) return <p>Error...</p>
 
   const indexOfLastPost = page * postPerPage
