@@ -3,7 +3,6 @@ import styled from 'styled-components'
 import { useMutation, useApolloClient, gql } from '@apollo/client'
 import { useAuth0 } from "../../react-auth0-spa";
 import { useHistory } from "react-router-dom";
-import { calculateAverage } from '../../utils/calculateAverage'
 import StarRating from './StarRating'
 
 

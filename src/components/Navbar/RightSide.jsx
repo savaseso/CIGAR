@@ -12,10 +12,8 @@ export default function RightSide() {
     if (isAuthenticated) {
         return (
             <Container>
-                <Link to="/profile">My Account</Link>
-                <Welcome>Welcome {user.nickname}</Welcome>
+                <Welcome>Welcome <Name to="/profile">{user.nickname}</Name></Welcome>
                 <ProfilePicture src={user.picture} alt="Profile Picture" />
-
                <ButtonStyle onClick={()=>logout()}>Logout</ButtonStyle> 
                <Link to='/cart'><ShoppingCart /></Link>
             </Container>
@@ -33,8 +31,9 @@ export default function RightSide() {
 
 
 const Container = styled.div`
-  text-align: right;
-  display:inline; 
+ display:flex;
+ justify-content:center;
+ align-items:center;
 `
 
 const ShoppingCart = styled(Cart)`
@@ -48,7 +47,15 @@ const ProfilePicture = styled.img`
     height:25px;
     width:25px;
     border-radius:50%;
+    margin-right:3rem;
+    margin-left:0.3rem;
+
 `
 const Welcome = styled.span`
     color:#E7E7E8;
+`
+
+const Name = styled(Link)`
+    margin-left:0.1rem;
+    color:#9E6924;
 `
