@@ -34,6 +34,7 @@ const Products = ({ searchResult }) => {
 
   if (loading) return <Loading />
   if (error) return <p>Error...</p>
+ 
 
   const indexOfLastPost = page * postPerPage
   const indexOfFirstPost = indexOfLastPost - postPerPage

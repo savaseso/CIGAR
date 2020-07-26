@@ -3,7 +3,7 @@ import { useAuth0 } from "../../react-auth0-spa";
 import styled from 'styled-components';
 import { Link } from "react-router-dom";
 import { Cart } from '@styled-icons/boxicons-regular/Cart'
-import Button from '../../utils/button'
+import {ButtonStyle} from '../styles/buttonStyles'
 
 
 
@@ -16,14 +16,14 @@ export default function RightSide() {
                 <Welcome>Welcome {user.nickname}</Welcome>
                 <ProfilePicture src={user.picture} alt="Profile Picture" />
 
-               <Button name={'Logout'} action={logout} /> 
+               <ButtonStyle onClick={()=>logout()}>Logout</ButtonStyle> 
                <Link to='/cart'><ShoppingCart /></Link>
             </Container>
         )
     } else {
         return (
         <Container>
-            <LoginStyle name={'Login/Signup'} action={loginWithRedirect} />
+            <ButtonStyle onClick={loginWithRedirect}>Login/Signup</ButtonStyle>
             <Link to='/cart'><ShoppingCart /></Link>
         </Container>
         )
@@ -38,24 +38,14 @@ const Container = styled.div`
 `
 
 const ShoppingCart = styled(Cart)`
-  color: #C307;
+  color: #E7E7D6;
   width:30px;
   height:30px;
 `
 
-const LoginStyle = styled(Button)`
-    background-color: #4CAF50; /* Green */
-    border: none;
-    color: white;
-    padding: 10px 15px;
-    text-align: center;
-    text-decoration: none;
-    display: inline-block;
-    font-size: 14px;
-`
 
 const ProfilePicture = styled.img`
-    height:20px;
+    height:25px;
     width:25px;
     border-radius:50%;
 `

@@ -28,7 +28,7 @@ const theme = {
   maxWidth: '1000px',
   buttonColor: '#fff',
   navBar: '#24292E',
-  footer: '#333'
+  footer: '#24292E'
 }
 
 
