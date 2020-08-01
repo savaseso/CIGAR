@@ -25,7 +25,7 @@ export default Footer;
 const Container = styled.div`
  height: 400px;
  width: 100vw;
- background:${props => props.theme.footer};
+ background-color:${props => props.theme.footer};
  display:flex;
  flex-direction:column;
  justify-content:center;

@@ -1,7 +1,7 @@
 import React from 'react'
 import styled from 'styled-components'
 import { useMutation, useApolloClient, gql } from '@apollo/client'
-import { useAuth0 } from "../../react-auth0-spa";
+import { useAuth0 } from "../react-auth0-spa";
 import { useHistory } from "react-router-dom";
 import StarRating from './StarRating'
 

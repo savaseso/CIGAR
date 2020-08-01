@@ -68,6 +68,12 @@ const AuthorizedApolloProvider = ({ children }) => {
     link: splitLink,
     cache: new InMemoryCache(),
     connectToDevTools: true,
+    clientState: {
+      resolvers:{},
+      defaults:{
+        hamburgerMenuOpen:true
+      } 
+    }
   });
 
   return (

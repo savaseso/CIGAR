@@ -1,11 +1,10 @@
 
 import React, {useState} from 'react'
 import Products from './Products'
-import styled, { ThemeProvider } from 'styled-components'
 import { useLazyQuery, gql } from '@apollo/client' 
-import NavBar from '../Navbar/NavBar'
-import ImageBanner from './ImageBanner'
-import Footer from '../Footer/Footer'
+import NavBar from './NavBar'
+import Footer from './Footer'
+import Loading from '../utils/Loading'
 
 
 const SEARCH = gql`
@@ -24,31 +23,24 @@ const SEARCH = gql`
 `
 
 
-const theme = {
-  maxWidth: '1000px',
-  buttonColor: '#fff',
-  navBar: '#24292E',
-  footer: '#24292E'
-}
+
 
 
 const Main = (props) => {
   
   const [inputVal, setInputVal] = useState('')
   const [search, {loading, error, data}] = useLazyQuery(SEARCH) 
-
+  if(loading) return <Loading />
   return (
-    <ThemeProvider theme={theme}>
+    <div>
       <NavBar
         inputVal={inputVal}
         onChange={(e)=>setInputVal(e.target.value)}
         onSearch={()=>search({variables:{match:`%${inputVal}%`}})}
       />
-     
       <Products searchResult={data ? data.products : null} />
       <Footer />
-
-    </ThemeProvider>
+    </div>
 
   )
 }

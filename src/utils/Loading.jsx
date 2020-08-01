@@ -1,5 +1,5 @@
 import React from 'react'
-import logo from '../img/Rolling-1s-200px.gif'
+import logo from '../img/spinner.gif'
 import styled from 'styled-components'
 
 const Spinner = styled.div`

@@ -1,9 +1,11 @@
 import React, { useState, useEffect } from 'react'
 import { useQuery, useMutation, useApolloClient, gql } from '@apollo/client'
 import Product from './Product'
-import Loading from '../../utils/Loading';
+import Loading from '../utils/Loading';
 import styled from 'styled-components'
 import Pagination from './Pagination'
+import NoResults from './NoResults'
+
 
 
 
@@ -32,7 +34,7 @@ const Products = ({ searchResult }) => {
       setPage(1)
   },[searchResult]);
 
-  if (loading) return <p>loading</p>
+  if (loading) return <Loading/>
   if (error) return <p>Error...</p>
  
 
@@ -49,7 +51,7 @@ const Products = ({ searchResult }) => {
   }
 
   if (searchResult !== null && searchResult.length === 0) {
-    return <p>No Results</p>
+    return <NoResults />
   }
 
 

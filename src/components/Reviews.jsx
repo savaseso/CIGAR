@@ -1,6 +1,6 @@
-import React, {useState} from 'react'
-import { useQuery, useMutation, useSubscription, useApolloClient, gql } from '@apollo/client'
-import { useAuth0 } from "../../react-auth0-spa";
+import React, { useState } from 'react'
+import {  useMutation, gql } from '@apollo/client'
+import { useAuth0 } from "../react-auth0-spa";
 import Moment from 'react-moment';
 import StarRatings from './StarRating'
 
@@ -13,20 +13,21 @@ mutation ($body:String! $cigar_id:uuid! $user_id:String!)  {
 `
 
 
- const Reviews = (props) => {
+const Reviews = (props) => {
     const { isAuthenticated, loginWithRedirect, user } = useAuth0();
     const [inputVal, setInputVal] = useState('')
-    const [addReview, { load, err, review }] = useMutation(ADDREVIEW);
+    const [addReview] = useMutation(ADDREVIEW);
     const { product_review } = props.data.products_by_pk
     const { id } = props.props.match.params
     return (
         <div>
-             {
+            <StarRatings id={props.props.match.params.id} /><span>({props.data.products_by_pk.products_ratings.length})</span>
+            {
                 product_review ?
                     product_review.map(review => <div key={review.id}>
                         <p>{review.body}</p>
-                        <Moment fromNow>{review.created_at}</Moment>
-                        <p>by {review.reviews_user.username}</p>
+                        <Moment fromNow >{review.created_at}</Moment>
+                        <span >{' '}by {review.reviews_user.username}</span>
                     </div>)
                     : null
             }
@@ -42,16 +43,18 @@ mutation ($body:String! $cigar_id:uuid! $user_id:String!)  {
                             onClick={() => {
                                 addReview({ variables: { body: `${inputVal}`, cigar_id: `${id}`, user_id: `${user.sub}` } })
                                     .then(() => setInputVal(""))
-                                    .catch((e) => console.log(e)/* setInputVal(e.message) */)
+                                    .catch((e) => console.log(e))
                             }}>
                             submit
                         </button>
                     </div> : null
             }
-            <StarRatings id={props.props.match.params.id}/><span>({props.data.products_by_pk.products_ratings.length})</span>
+            
         </div>
     )
 }
 
 
 export default Reviews
+
+

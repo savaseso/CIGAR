@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react'
-import StarRatings from '../../../node_modules/react-star-ratings';
+import StarRatings from 'react-star-ratings';
 import { useQuery, useMutation, useSubscription, useApolloClient, gql } from '@apollo/client';
-import { useAuth0 } from "../../react-auth0-spa";
+import { useAuth0 } from "../react-auth0-spa";
 import { Data } from 'styled-icons/boxicons-solid';
-import {calculateAverage} from '../../utils/calculateAverage'
+import {calculateAverage} from '../utils/calculateAverage'
 
 
 const RATING = gql`

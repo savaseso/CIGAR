@@ -2,13 +2,12 @@ import React from 'react'
 import styled from 'styled-components'
 import { Link } from "react-router-dom";
 import { Search } from '@styled-icons/evaicons-solid/Search'
-import Button from '../../utils/button'
-import {ButtonStyle} from '../styles/buttonStyles'
+import Button from '../utils/button'
+import { ButtonStyle } from './styles/buttonStyles'
 
 
 
 const SearchInput = ({inputVal, onChange, onSearch}) => {
-  console.log(inputVal)
     return (
        <Container>
           <Input type='search' value={inputVal} onChange={onChange} placeholder='Search for a cigar' />

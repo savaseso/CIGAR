@@ -1,7 +1,10 @@
 import React, { Fragment } from "react";
-import { useAuth0 } from "../../react-auth0-spa";
+import { useAuth0 } from "../react-auth0-spa";
 import { useMutation, gql } from  '@apollo/client'
-import Loading from '../../utils/Loading';
+import Loading from '../utils/Loading';
+import Footer from './Footer'
+import NavBar from './NavBar'
+
 
 const TESZT = gql`
 mutation {
@@ -13,17 +16,16 @@ mutation {
 
 const Profile = (props) => {
   const {isAuthenticated, loading, user,loginWithRedirect } = useAuth0();
-  const [payment,{error, data}] = useMutation(TESZT);
+  const [payment] = useMutation(TESZT);
   
 
   if (loading) {
     return <Loading />;
   }
-console.log(user.sub)
   if (user){
      return (
-       
         <div>
+          <NavBar />
         <p>hello</p>
          <Fragment>
           <img src={user.picture} alt="Profile" />
@@ -37,8 +39,8 @@ console.log(user.sub)
                 window.location.replace(data.data.orderPayment.userLink)
                console.log(window.location.pathname)
             }}>pay</button>
-       
         </Fragment> 
+        <Footer />
         </div>
        
       )  
