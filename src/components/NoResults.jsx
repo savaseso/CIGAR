@@ -1,5 +1,6 @@
 import React from 'react'
 import styled from 'styled-components'
+import  { Container }  from '../components/styles/Container'
 
 
  const NoResults = () => {
@@ -14,13 +15,7 @@ import styled from 'styled-components'
 export default NoResults;
 
 
-const Container = styled.div`
-    height:40rem;
-    display:flex;
-    justify-content:center;
-    align-items:center;
 
-`
 
 const P = styled.p`
     font-size:2rem;

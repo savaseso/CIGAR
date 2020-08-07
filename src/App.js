@@ -12,6 +12,7 @@ import ProductDetails from './components/ProductDetails'
 import styled, { ThemeProvider } from 'styled-components'
 import Termsandconditions from './components/Termsandconditions';
 import ContactUs from './components/ContactUs';
+import ScrollToTop from './utils/ScrollToTop';
 
 
 
@@ -35,6 +36,7 @@ const App = (props) => {
   return (
     <ThemeProvider theme={theme}>
       <Router>
+        <ScrollToTop>
         <Switch>
           <Route path="/profile" component={Profile} />
           {/*        <PrivateRoute path="/cart" component={Cart} />
@@ -46,6 +48,7 @@ const App = (props) => {
           <Route exact path="/terms-conditions" component={Termsandconditions} />
           <Route exact path="/contact-us" component={ContactUs} />
         </Switch>
+        </ScrollToTop>
         <GlobalStyles />
       </Router>
     </ThemeProvider>

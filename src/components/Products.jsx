@@ -5,6 +5,7 @@ import Loading from '../utils/Loading';
 import styled from 'styled-components'
 import Pagination from './Pagination'
 import NoResults from './NoResults'
+import Error from '../utils/Error';
 
 
 
@@ -35,7 +36,7 @@ const Products = ({ searchResult }) => {
   },[searchResult]);
 
   if (loading) return <Loading/>
-  if (error) return <p>Error...</p>
+  if (error) return <Error />
  
 
   const indexOfLastPost = page * postPerPage

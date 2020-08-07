@@ -6,6 +6,7 @@ import styled from 'styled-components'
 import Footer from './Footer'
 import NavBar from './NavBar'
 import Loading from '../utils/Loading'
+import Error from '../utils/Error'
 
 
 
@@ -40,11 +41,10 @@ const ProductDetails = (props) => {
   })
 
   if (loading) return <Loading />
-  if (error) return console.log(error)
+  if (error) return <Error />
 
   const { name, image, price, description } = data.products_by_pk
   if (data)
-    console.log(data)
   return (
     <div>
       <NavBar />

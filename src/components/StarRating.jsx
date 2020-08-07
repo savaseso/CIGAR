@@ -35,7 +35,7 @@ const StarRating = (props) => {
         variables: { id: props.id }
     });
     const [addRating,{load, err, dat}] = useMutation(STARRATING);
-    console.log(err, dat)
+   
 
     useEffect(() => {
 

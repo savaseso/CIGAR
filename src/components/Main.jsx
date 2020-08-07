@@ -5,6 +5,7 @@ import { useLazyQuery, gql } from '@apollo/client'
 import NavBar from './NavBar'
 import Footer from './Footer'
 import Loading from '../utils/Loading'
+import Error from '../utils/Error'
 
 
 const SEARCH = gql`
@@ -31,6 +32,7 @@ const Main = (props) => {
   const [inputVal, setInputVal] = useState('')
   const [search, {loading, error, data}] = useLazyQuery(SEARCH) 
   if(loading) return <Loading />
+  if(error) return <Error />
   return (
     <div>
       <NavBar

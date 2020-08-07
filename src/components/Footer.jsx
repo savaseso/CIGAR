@@ -1,19 +1,18 @@
 
 import React from 'react'
 import styled from 'styled-components'
-//import { Facebook } from '@styled-icons/boxicons-logos/FacebookSquare'
 import { Link } from "react-router-dom";
+import SocialIcons from './SocialIcons'
 
 
 
- const Footer = (props) => {
+const Footer = (props) => {
     return (
         <Container>
-            {/* <Social /> */}
             <StyledLink to='/terms-conditions'>Terms and Conditions</StyledLink>
             <StyledLink to='/contact-us'>Contact Us</StyledLink>
-           {/*  <Social>Terms and Conditions</Social>
-            <AllRights>Terms and Conditions</AllRights> */}
+            <SocialIcons />
+            <P>© 2018 - ctorontocigar.com All rights reserved</P>
         </Container>
     )
 }
@@ -50,3 +49,10 @@ const StyledLink = styled(Link)`
  
 `
 
+
+
+const P = styled.p`
+    margin-top: 3rem;
+     color:#E7E7D6;
+     font-size: 0.8rem;
+`
