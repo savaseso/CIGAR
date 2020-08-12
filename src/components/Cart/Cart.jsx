@@ -31,6 +31,7 @@ const Cart = () => {
     console.log(load)
     console.log(error)
     console.log(data)
+    console.log(user)
     if(loading){
         return <Loading />
       }

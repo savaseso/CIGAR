@@ -12,6 +12,7 @@ const GRAPHQL_ENDPOINT = "ctorontocigar.herokuapp.com/v1/graphql";
 
 const AuthorizedApolloProvider = ({ children }) => {
   const { getIdTokenClaims } = useAuth0();
+  
 
   const httpLink = createHttpLink({
     uri: `https://${GRAPHQL_ENDPOINT}`,
