@@ -3,6 +3,8 @@ import { ApolloClient, ApolloProvider, createHttpLink, InMemoryCache, split } fr
 import { getMainDefinition } from '@apollo/client/utilities'
 import { WebSocketLink } from '@apollo/link-ws';
 import { setContext } from '@apollo/link-context';
+import { ApolloLink } from 'apollo-link';
+import { withClientState } from 'apollo-link-state';
 import React from 'react';
 import { useAuth0 } from './react-auth0-spa';
 
@@ -16,6 +18,7 @@ const AuthorizedApolloProvider = ({ children }) => {
 
   const httpLink = createHttpLink({
     uri: `https://${GRAPHQL_ENDPOINT}`,
+    credentials: 'include'
   });
 
 
@@ -30,8 +33,10 @@ const AuthorizedApolloProvider = ({ children }) => {
       return {
         headers: {
           ...headers,
-          Authorization: token ? `Bearer ${token.__raw}` : ''
-        }
+          Authorization: token ? `Bearer ${token.__raw}` : '',
+          credentials: 'include'
+
+        },
       };
     }
   });
@@ -40,6 +45,7 @@ const AuthorizedApolloProvider = ({ children }) => {
     uri: `ws://${GRAPHQL_ENDPOINT}`,
     options: {
       reconnect: true,
+      credentials: 'include',
       connectionParams: async () => {
         const token = await getIdTokenClaims();
         if(token){
@@ -51,7 +57,7 @@ const AuthorizedApolloProvider = ({ children }) => {
     }
     }
   }});
-
+  
 
   const splitLink = split(
     ({ query }) => {
@@ -68,13 +74,16 @@ const AuthorizedApolloProvider = ({ children }) => {
   const apolloClient = new ApolloClient({
     link: splitLink,
     cache: new InMemoryCache(),
+    credentials: 'include',
     connectToDevTools: true,
-    clientState: {
-      resolvers:{},
-      defaults:{
-        hamburgerMenuOpen:true
-      } 
-    }
+    resolvers:{
+      Query:{
+        isOpen (){
+          
+          return false
+
+        } 
+    }}
   });
 
   return (

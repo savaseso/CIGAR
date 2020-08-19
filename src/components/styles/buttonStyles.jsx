@@ -16,4 +16,8 @@ export const ButtonStyle = styled.button`
     :hover {
         background-color:#B8843F;
     }
+    @media (max-width: 500px) {
+    width:4rem;
+    margin:10px;
+    }
 `

@@ -83,7 +83,12 @@ const Cards = styled.section`
   grid-gap: 60px; 
  /*  max-width: ${props => props.theme.maxWidth}; */
   margin: 2rem auto;
-/*   @media (max-width: 775x) {
-    grid-template-columns: 1fr important!;
-    } */
+   @media (max-width: 836px) {
+    grid-gap:5px
+    
+    } 
+   @media (max-width: 767px) {
+    grid-template-columns: 1fr;
+    grid-gap:15px
+    } 
 `

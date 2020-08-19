@@ -1,19 +1,21 @@
 import React from 'react'
 import { useAuth0 } from "../react-auth0-spa";
-import styled from 'styled-components';
+import styled, {css} from 'styled-components';
 import { Link } from "react-router-dom";
 import { Cart } from '@styled-icons/boxicons-regular/Cart'
 import { Facebook, Instagram, Whatsapp } from '@styled-icons/boxicons-logos'
 import { ButtonStyle } from './styles/buttonStyles'
 import SocialIcons from './SocialIcons'
+import Hamburger from './Hamburger'
 
 
 
-const RightSide = () => {
+const RightSide = ({open,setOpen}) => {
     const { isAuthenticated, loginWithRedirect, logout, user } = useAuth0();
     if (isAuthenticated) {
         return (
-            <Container>
+            <div>
+            <Container isAuthenticated>
                 <div>
                     <Greetings>
                         <Welcome>Welcome <Name to="/profile">{user.nickname}</Name></Welcome>
@@ -26,14 +28,19 @@ const RightSide = () => {
                     <Link to='/cart'><ShoppingCart /></Link>
                 </Inner>
             </Container>
+            <Hamburger open={open} setOpen={setOpen} />
+            </div>
         )
     } else {
         return (
+            <div>
             <Container>
                 <SocialIcons />
                 <ButtonStyle onClick={loginWithRedirect}>My Account</ButtonStyle>
                 <Link to='/cart'><ShoppingCart /></Link>
             </Container>
+            <Hamburger open={open} setOpen={setOpen} />
+            </div>
         )
     }
 }
@@ -46,6 +53,14 @@ const Container = styled.div`
  display:flex;
  justify-content:center;
  align-items:center;
+ ${props => props.isAuthenticated && css`
+     @media (max-width: 1040px) {
+        display:none;
+     }
+  `}
+ @media (max-width: 900px) {
+      display:none;
+    }
 `
 const Inner = styled.div`
  display:flex;
@@ -83,3 +98,4 @@ const Name = styled(Link)`
     margin-left:0.1rem;
     color:#9E6924;
 `
+

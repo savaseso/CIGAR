@@ -1,5 +1,5 @@
-import React from 'react'
-import { useQuery, gql } from '@apollo/client' 
+import React, { useState } from 'react'
+import { useQuery, gql } from '@apollo/client'
 import { useLocation } from 'react-router-dom'
 import { Cart } from '@styled-icons/boxicons-regular/Cart'
 import Logo from './Logo'
@@ -11,31 +11,21 @@ import Hamburger from './Hamburger'
 
 
 
-/* 
-const BURGER = gql`
-query  {
-    cart @client{
-      hamburgerOpen
-    }
-  }
-`; */
 
-const NavBar = ({inputVal, onChange, onSearch}) => {
- /*  const { loading, error, data } = useQuery(BURGER);
-  if(data) console.log(loading)
-  if(error) console.log(error) */
+
+const NavBar = ({ inputVal, onChange, onSearch }) => {
+  const [open, setOpen] = useState(false)
   let location = useLocation();
   console.log(location.pathname)
-    return (
-      <Nav>
-        <Logo />  
-        {location.pathname==='/' ? <SearchInput inputVal={inputVal} onChange={onChange} onSearch={onSearch} /> : null}
-        <RightSide />
-       {/*  <Hamburger />
-        <Menu /> */}
-      </Nav>
-    )
-  
+  return (
+    <Nav>
+        <Logo />
+        {location.pathname === '/' ? <SearchInput inputVal={inputVal} onChange={onChange} onSearch={onSearch} /> : null}
+        <RightSide open={open} setOpen={setOpen} />
+        <Menu open={open} />
+    </Nav>
+  )
+
 
 };
 

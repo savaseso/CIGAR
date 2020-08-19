@@ -1,14 +1,13 @@
 
 import React from 'react'
-import { useQuery, gql } from '@apollo/client' 
+import { useQuery, gql, useApolloClient } from '@apollo/client' 
 import styled from 'styled-components'
-
 
 
 
 const Menu = ({ open }) => {
     return (
-      <StyledMenu  open={true} >
+      <StyledMenu  open={open}  >
         <a href="/">
           <span role="img" aria-label="about us">💁🏻‍♂️</span>
           About us
@@ -30,18 +29,22 @@ const Menu = ({ open }) => {
 
   const StyledMenu = styled.nav`
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   justify-content: center;
   background: #EFFFFA;
-  transform: ${({ open }) => open ? 'translateX(0)' : 'translateX(-100%)'};
-  height: 100vh;
+  transform: ${({ open }) => open ? 'translateY(25%)' : 'translateY(-100%)'};
+  height: 25rem;
   text-align: left;
   padding: 2rem;
   position: absolute;
   top: 0;
   right: 0;
   transition: transform 0.3s ease-in-out;
-
+  z-index:9;
+  width: 100%;
+ @media (max-width: 610px) {
+  transform: ${({ open }) => open ? 'translateY(50%)' : 'translateY(-100%)'};
+     }
   @media (max-width: 576px) {
       width: 100%;
     }

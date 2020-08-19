@@ -1,11 +1,19 @@
 import React from 'react'
-import { useQuery, gql } from '@apollo/client' 
-import styled from 'styled-components'
+import { useQuery, gql, useApolloClient } from '@apollo/client' 
+import styled, {css} from 'styled-components'
+import { FormatListNumbered } from 'styled-icons/material-sharp';
+import { useAuth0 } from "../react-auth0-spa";
+import { useLocation } from 'react-router-dom'
+
+
+
 
 
 const Burger = ({ open, setOpen }) => {
+  const { isAuthenticated } = useAuth0();
+  let location = useLocation();
     return (
-      <StyledBurger open={true} /* onClick={() => console.log('hi) } */>
+      <StyledBurger  isAuthenticated={isAuthenticated} open={open} onClick={() =>setOpen(!open)  }>
         <div />
         <div />
         <div />
@@ -29,7 +37,25 @@ const Burger = ({ open, setOpen }) => {
   border: none;
   cursor: pointer;
   padding: 0;
+  margin-left:1rem;
   z-index: 10;
+   @media (max-width: 610px) {
+      top: 15%;
+      margin-left:0;
+
+     } 
+  ${props => props.isAuthenticated && css`
+     @media (min-width: 1040px) {
+        display:none;
+     }
+  `}
+  ${props => props.isAuthenticated===false && css`
+     @media (min-width: 901px) {
+        display:none;
+     }
+  `}
+
+
 
   &:focus {
     outline: none;
@@ -38,7 +64,7 @@ const Burger = ({ open, setOpen }) => {
   div {
     width: 2rem;
     height: 0.25rem;
-    background: ${({ open }) => open ? '#0D0C1D' : '#EFFFFA'};
+    background: ${({ open }) => open ? '#EFFFFA' : '#EFFFFA'};
     border-radius: 10px;
     transition: all 0.3s linear;
     position: relative;

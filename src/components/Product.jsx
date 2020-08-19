@@ -63,6 +63,10 @@ const Card = styled.div`
     color: #5d5e5e; 
     overflow:hidden;
     text-align:center;
+    @media (max-width: 353px) {
+      width:19rem;
+
+    }
 `
 
 

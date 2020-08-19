@@ -13,6 +13,7 @@
     "apollo-link": "^1.2.14",
     "apollo-link-context": "^1.0.20",
     "apollo-link-http": "^1.5.17",
+    "apollo-link-state": "^0.4.2",
     "fetch": "^1.1.0",
     "graphql": "^15.3.0",
     "moment": "^2.27.0",
