@@ -7,11 +7,14 @@ import NavBar from '../NavBar'
 import Footer from '../Footer'
 import EmptyCart from './EmptyCart'
 import CartContainer from './CartContainer'
+import Cookies from 'universal-cookie';
+
+const cookies = new Cookies();
 
 
 const CART = gql`
-subscription {
-    cart {
+subscription ($user_id:String!) {
+    cart (where: {user_id: {_eq: $user_id}}) {
     id
     price
     product_id
@@ -21,38 +24,47 @@ subscription {
   }
   }
 `;
+/* const CART_GUEST = gql`
+subscription {
+    cart(where: {user_id: {_eq: ${cookies.get('device')}}}) {
+    product_id
+    quantity
+    id
+    price
+    product
+    user_id
+  }
+  }
+  }
+`; */
 
 
 
 const Cart = () => {
     const {isAuthenticated, loading, user,loginWithRedirect } = useAuth0();
-    const { load, error, data } = useSubscription(CART);
+    const { load, error, data } = useSubscription(CART , {
+        variables: { user_id: !user ? cookies.get('device') : user.sub   }
+    } );
+    
 
-    console.log(load)
-    console.log(error)
-    console.log(data)
-    console.log(user)
+   
     if(loading){
         return <Loading />
       }
-    if(!isAuthenticated){
-        return loginWithRedirect()
-      }
-    if(isAuthenticated){
+
         if(!data){
             return <Loading />
         } else {
-        return (
+        return  (
             <div>
                 <NavBar />
                 {data.cart.length === 0 ? <EmptyCart /> : <CartContainer data={data}/>} 
                 <Footer />
             </div>
-        )
-        }
-    }
-
-}
+        )}
+      }
+   
+    
 
 
 export default Cart;

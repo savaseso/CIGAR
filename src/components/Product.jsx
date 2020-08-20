@@ -4,12 +4,13 @@ import { useMutation, useApolloClient, gql } from '@apollo/client'
 import { useAuth0 } from "../react-auth0-spa";
 import { useHistory } from "react-router-dom";
 import StarRating from './StarRating'
+import Cookies from 'universal-cookie';
 
-
+const cookies = new Cookies();
 
 const ITEM = gql`
-mutation ($id:name!) {
-  createCartItem(product_id: $id, quantity: 1) {
+mutation ($id:name!, $userId:name) {
+  createCartItem(product_id: $id, quantity: 1, userId:$userId) {
     id
   }
   }
@@ -21,6 +22,7 @@ const Product = (props) => {
   let history = useHistory();
   const { stock_available } = props.product.products_inventory
   const { name, price, id, image } = props.product
+  console.log(cookies.get('device'))
   return (
     <Card>
       <ImageContainer onClick={() => history.push(`/details/${id}`)} image={image}></ImageContainer>
@@ -31,10 +33,10 @@ const Product = (props) => {
         <Availability>Availability:<Stock stock={stock_available}> {stock_available > 0 ? 'In Stock' : 'Out of Stock'}</Stock></Availability>
         <AddToCart
           onClick={() => {
-            if (!isAuthenticated) {
+         /*    if (!isAuthenticated) {
               return loginWithRedirect()
-            }
-            addCartItem({ variables: { id: `${id}` } })
+            } */
+            addCartItem({ variables: { id: `${id}`, userId:`${cookies.get('device')}` } })
               .then(() => console.log('item added to the cart'))
               .catch((e) => console.log(e))
           }}
