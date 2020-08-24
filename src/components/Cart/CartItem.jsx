@@ -1,12 +1,17 @@
 import React from 'react'
 import styled from 'styled-components'
+import { useAuth0 } from "../../react-auth0-spa";
 import { useMutation, useApolloClient, gql } from '@apollo/client';
 import { Trash } from '@styled-icons/boxicons-regular/Trash'
+import Cookies from 'universal-cookie';
+
+const cookies = new Cookies();
+
 
 
 const UPDATECARTITEM = gql`
-  mutation ($id:name!,$quantity: Int!) {
-    updateCartItem(id:$id, quantity:$quantity) {
+  mutation ($id:name!,$quantity: Int!,$user_id: name) {
+    updateCartItem(id:$id, quantity:$quantity,user_id:$user_id) {
     quantity
   }
   }
@@ -20,6 +25,7 @@ const REMOVEITEM = gql`
 `;
 
 const CartItem = ({ data }) => {
+    const { isAuthenticated, loginWithRedirect } = useAuth0();
     const { id, product, price, quantity } = data;
     const [updateQuantity, { load, err, dat }] = useMutation(UPDATECARTITEM);
     const [removeItem] = useMutation(REMOVEITEM);
@@ -35,7 +41,7 @@ const CartItem = ({ data }) => {
             <ItemContainer>
                 <div>
                     <div>
-                        <Button onClick={() => updateQuantity({ variables: { id: `${id}`, quantity: `${quantity - 1}` } })
+                        <Button onClick={() => updateQuantity({ variables: { id: `${id}`, quantity: `${quantity - 1}`, user_id: `${!isAuthenticated ? cookies.get('device') : null}` } })
                             .then(() => console.log(quantity))
                             .catch((e) => console.log(e))} >-</Button>
                         <span>{quantity}</span>

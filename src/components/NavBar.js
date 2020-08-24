@@ -18,7 +18,7 @@ const NavBar = ({ inputVal, onChange, onSearch }) => {
   let location = useLocation();
   console.log(location.pathname)
   return (
-    <Nav>
+    <Nav path={location.pathname}>
         <Logo />
         {location.pathname === '/' ? <SearchInput inputVal={inputVal} onChange={onChange} onSearch={onSearch} /> : null}
         <RightSide open={open} setOpen={setOpen} />
