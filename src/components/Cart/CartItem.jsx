@@ -4,14 +4,15 @@ import { useAuth0 } from "../../react-auth0-spa";
 import { useMutation, useApolloClient, gql } from '@apollo/client';
 import { Trash } from '@styled-icons/boxicons-regular/Trash'
 import Cookies from 'universal-cookie';
-
+import { ToastContainer, toast } from 'react-toastify';
+import { notify } from '../../utils/notify'
 const cookies = new Cookies();
 
 
 
 const UPDATECARTITEM = gql`
-  mutation ($id:name!,$quantity: Int!,$user_id: name) {
-    updateCartItem(id:$id, quantity:$quantity,user_id:$user_id) {
+  mutation ($id:name!,$quantity: Int!) {
+    updateCartItem(id:$id, quantity:$quantity) {
     quantity
   }
   }
@@ -41,20 +42,32 @@ const CartItem = ({ data }) => {
             <ItemContainer>
                 <div>
                     <div>
-                        <Button onClick={() => updateQuantity({ variables: { id: `${id}`, quantity: `${quantity - 1}`, user_id: `${!isAuthenticated ? cookies.get('device') : null}` } })
+                        <Button onClick={() => updateQuantity({ variables: { id: `${id}`, quantity: `${quantity - 1}` } })
                             .then(() => console.log(quantity))
-                            .catch((e) => console.log(e))} >-</Button>
+                            .catch((e) => toast.error('Something has happened'))} >-</Button>
                         <span>{quantity}</span>
                         <Button onClick={() => updateQuantity({ variables: { id: `${id}`, quantity: `${quantity + 1}` } })
-                            .then(() => console.log('ITEM WAS RATED'))
-                            .catch((e) => alert(e.message))} >+</Button>
+                            .then(() => console.log('ITEM WAS UPDATED'))
+                            .catch((e) => toast.error(`${e.message} in stock`))}
+                        >+</Button>
+                        <ToastContainer
+                            position="bottom-right"
+                            autoClose={3000}
+                            hideProgressBar={false}
+                            newestOnTop={false}
+                            closeOnClick
+                            rtl={false}
+                            pauseOnFocusLoss
+                            draggable
+                            pauseOnHover
+                        />
                     </div>
                 </div>
             </ItemContainer>
             <ItemContainer>
-                <div onClick={() => removeItem({ variables: { id: `${id}`} })
-                            .then(() => console.log('ITEM WAS Deleted'))
-                            .catch((e) => console.log('ITEM WAS Deleted'))}>
+                <div onClick={() => removeItem({ variables: { id: `${id}` } })
+                    .then(() => toast.dark('Item was deleted'))
+                    .catch((e) => toast.error('Something has happened'))}>
                     <TrashIcon />
                 </div>
             </ItemContainer>

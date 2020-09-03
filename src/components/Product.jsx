@@ -5,6 +5,8 @@ import { useAuth0 } from "../react-auth0-spa";
 import { useHistory } from "react-router-dom";
 import StarRating from './StarRating'
 import Cookies from 'universal-cookie';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const cookies = new Cookies();
 
@@ -33,14 +35,25 @@ const Product = (props) => {
         <Availability>Availability:<Stock stock={stock_available}> {stock_available > 0 ? 'In Stock' : 'Out of Stock'}</Stock></Availability>
         <AddToCart
           onClick={() => {
-         /*    if (!isAuthenticated) {
-              return loginWithRedirect()
-            } */
-            addCartItem({ variables: { id: `${id}`, userId:`${cookies.get('device')}` } })
-              .then(() => console.log('item added to the cart'))
-              .catch((e) => console.log(e))
+            /*    if (!isAuthenticated) {
+                 return loginWithRedirect()
+               } */
+            addCartItem({ variables: { id: `${id}`, userId: `${cookies.get('device')}` } })
+              .then(() => toast.dark('Item added to the cart'))
+              .catch((e) =>toast.error(`This item is ${e.message}`))
           }}
         >Add to Cart</AddToCart>
+        <ToastContainer
+          position="bottom-right"
+          autoClose={3000}
+          hideProgressBar={false}
+          newestOnTop={false}
+          closeOnClick
+          rtl={false}
+          pauseOnFocusLoss
+          draggable
+          pauseOnHover
+        />
       </CardFooter>
     </Card>
   )

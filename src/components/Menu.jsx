@@ -1,25 +1,23 @@
 
 import React from 'react'
 import { useQuery, gql, useApolloClient } from '@apollo/client' 
+import { useAuth0 } from "../react-auth0-spa";
 import styled from 'styled-components'
+import { Link } from 'react-router-dom'
+import { Cart } from '@styled-icons/boxicons-regular/Cart'
 
 
 
 const Menu = ({ open }) => {
+  const {isAuthenticated, logout, user,loginWithRedirect } = useAuth0();
+
     return (
       <StyledMenu  open={open}  >
-        <a href="/">
-          <span role="img" aria-label="about us">💁🏻‍♂️</span>
-          About us
-        </a>
-        <a href="/">
-          <span role="img" aria-label="price">💸</span>
-          Pricing
-          </a>
-        <a href="/">
-          <span role="img" aria-label="contact">📩</span>
-          Contact
-          </a>
+        <Link to='/'>Home</Link>
+        <Link to='/profile'>My Account</Link>
+       <Link to='/cart'>My Cart<ShoppingCart/></Link>
+        {isAuthenticated? <Link onClick={logout}>Log Out</Link> : null}
+
       </StyledMenu>
     )
   }
@@ -29,8 +27,9 @@ const Menu = ({ open }) => {
 
   const StyledMenu = styled.nav`
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   justify-content: center;
+  align-items:center;
   background: #EFFFFA;
   transform: ${({ open }) => open ? 'translateY(25%)' : 'translateY(-100%)'};
   height: 25rem;
@@ -50,8 +49,8 @@ const Menu = ({ open }) => {
     }
 
   a {
-    font-size: 2rem;
-    text-transform: uppercase;
+    font-size: 1.5rem;
+    /* text-transform: uppercase; */
     padding: 2rem 0;
     font-weight: bold;
     letter-spacing: 0.5rem;
@@ -67,5 +66,15 @@ const Menu = ({ open }) => {
     &:hover {
       color: #343078;
     }
+  }
+`
+
+
+const ShoppingCart = styled(Cart)`
+  color: #0D0C1D;
+  width:40px;
+  height:40px;
+  :hover{
+      transform:scale(1.1)
   }
 `

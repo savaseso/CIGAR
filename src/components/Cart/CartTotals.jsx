@@ -1,54 +1,64 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 import styled from 'styled-components'
-import { useMutation, gql } from  '@apollo/client'
+import { useMutation, gql } from '@apollo/client'
+import { useAuth0 } from "../../react-auth0-spa";
+import Cookies from 'universal-cookie';
+const cookies = new Cookies();
+
 
 const PAYMENT = gql`
-mutation {
-  orderPayment(currency: "USD") {
+mutation ($user_id:String!) {
+  orderPayment(currency: "USD",user_id:$user_id) {
     userLink
   }
 }
 `
 
-const CartTotals = ({data}) => {
+const CartTotals = ({ data }) => {
+    const { isAuthenticated, user, loginWithRedirect } = useAuth0();
 
-const { id, product, price, quantity } = data;
-const [payment] = useMutation(PAYMENT);
+    const { id, product, price, quantity } = data;
+    const [payment] = useMutation(PAYMENT);
 
-console.log(data.cart)
+    console.log(data.cart)
 
 
     const getTotal = cart => {
-         return cart.reduce((accumulator, currentValue)=> currentValue.price * currentValue.quantity + accumulator
-        ,0)
+        return cart.reduce((accumulator, currentValue) => currentValue.price * currentValue.quantity + accumulator
+            , 0)
     }
-    
+
     return (
         <React.Fragment>
             <Container>
                 <Totals>
-                   {/*  <Link to='/Products'>
+                    {/*  <Link to='/Products'>
                         <ClearCart onClick={clearCart}>Clear Cart</ClearCart>
                     </Link> */}
-                   {/*  <Total><TotalText>subtotal :</TotalText> <strong>{cartSubtotal.toFixed(2)}</strong></Total>
+                    {/*  <Total><TotalText>subtotal :</TotalText> <strong>{cartSubtotal.toFixed(2)}</strong></Total>
                     <Total><TotalText>tax : </TotalText><strong>{cartTax}</strong></Total>
                     {shipping === 28 ? <Total><TotalText>shipping : </TotalText><strong>{shipping}</strong></Total> : null} */}
                     <Total><TotalText>total : </TotalText><strong>${getTotal(data.cart)}</strong></Total>
-                   {/*  <Label> Click here if you are in the US{' '}<ReactCountryFlag code="us" svg /> or Canada{' '}<ReactCountryFlag code="ca" svg /></Label>
+                    {/*  <Label> Click here if you are in the US{' '}<ReactCountryFlag code="us" svg /> or Canada{' '}<ReactCountryFlag code="ca" svg /></Label>
                     <Input
                         type="checkbox"
                         checked={USACANADA}
                         onChange={handleChange}
                     /> */}
-                    <button onClick={async ()=>{
-               
-               const data = await payment()
-               console.log(data)
-                window.location.replace(data.data.orderPayment.userLink)
-               console.log(window.location.pathname)
-            }}>pay</button>
-             </Totals>
+                    <button onClick={async () => {
+                        try{
+                            const data = await payment({ variables: { user_id: `${isAuthenticated ? user.sub : cookies.get('device')}` } })
+                            console.log(data)
+
+                            window.location.replace(data.data.orderPayment.userLink)
+                            console.log(window.location.pathname) 
+                        }
+                        catch(e){
+                            console.log(e)
+                        }
+                    }}>pay</button>
+                </Totals>
             </Container>
         </React.Fragment>
     )

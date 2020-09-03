@@ -14,7 +14,7 @@ const cookies = new Cookies();
 
 const CART = gql`
 subscription ($user_id:String!) {
-    cart (where: {user_id: {_eq: $user_id}}) {
+    cart (where: {user_id: {_eq: $user_id}}, order_by: {created_at: desc}) {
     id
     price
     product_id
@@ -24,19 +24,6 @@ subscription ($user_id:String!) {
   }
   }
 `;
-/* const CART_GUEST = gql`
-subscription {
-    cart(where: {user_id: {_eq: ${cookies.get('device')}}}) {
-    product_id
-    quantity
-    id
-    price
-    product
-    user_id
-  }
-  }
-  }
-`; */
 
 
 

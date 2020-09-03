@@ -50,7 +50,7 @@ const ProductDetails = (props) => {
       <NavBar />
       <Container>
         <Inner>
-          <img src={image} alt={name} />
+          <ProductImage src={image} alt={name} />
           <div>
             <h1>Product name:</h1>
             <p>{name}</p>
@@ -86,4 +86,9 @@ const Inner = styled.section`
   display:flex;
   justify-content:center;
   align-items:center;
+ `
+const ProductImage = styled.img`
+  width: 250px;
+  height: 300px;
+  margin: 2rem;
  `
