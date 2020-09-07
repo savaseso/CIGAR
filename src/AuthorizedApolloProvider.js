@@ -42,7 +42,7 @@ const AuthorizedApolloProvider = ({ children }) => {
   });
 
   const wsLink = new WebSocketLink({
-    uri: `ws://${GRAPHQL_ENDPOINT}`,
+    uri: `wss://${GRAPHQL_ENDPOINT}`,
     options: {
       reconnect: true,
       credentials: 'include',
