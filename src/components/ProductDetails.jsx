@@ -86,6 +86,10 @@ const Inner = styled.section`
   display:flex;
   justify-content:center;
   align-items:center;
+  @media (max-width: 620px) {
+      flex-direction:column;
+
+    }
  `
 const ProductImage = styled.img`
   width: 250px;

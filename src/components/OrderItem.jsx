@@ -16,10 +16,10 @@ const OrderItem = (props) => {
     return (
 
         <Container>
-            <div>
+            <Inner>
                 <Image src={product_name.image} alt="" />
                 <span >{product_name.name}</span>
-            </div>
+            </Inner>
 
             <p>${price}</p>
             <p>x{quantity}</p>
@@ -41,6 +41,10 @@ const Container = styled.div`
         margin-bottom:2rem;
         opacity:0.8;
   }
+`
+
+const Inner = styled.div`
+   text-align:left;
 `
 
 const Image = styled.img`
