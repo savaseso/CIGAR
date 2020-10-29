@@ -12,11 +12,13 @@ const Menu = ({ open }) => {
   const {isAuthenticated, logout, user,loginWithRedirect } = useAuth0();
 
     return (
-      <StyledMenu  open={open}  >
+      <StyledMenu  open={open} isAuthenticated={isAuthenticated}  >
         <Link to='/'>Home</Link>
         <Link to='/profile'>My Account</Link>
        <Link to='/cart'>My Cart<ShoppingCart/></Link>
         {isAuthenticated? <Link onClick={logout}>Log Out</Link> : null}
+        <Link to='/contact-us'>Contact Us</Link>
+
 
       </StyledMenu>
     )
@@ -50,8 +52,7 @@ const Menu = ({ open }) => {
 
   a {
     font-size: 1.5rem;
-    /* text-transform: uppercase; */
-    padding: 2rem 0;
+    padding: 1.5rem 0;
     font-weight: bold;
     letter-spacing: 0.5rem;
     color: #0D0C1D;
@@ -64,7 +65,7 @@ const Menu = ({ open }) => {
     }
 
     &:hover {
-      color: #343078;
+      color: #333;
     }
   }
 `

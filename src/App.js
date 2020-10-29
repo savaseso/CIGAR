@@ -15,6 +15,7 @@ import ContactUs from './components/ContactUs';
 import ScrollToTop from './utils/ScrollToTop';
 import { getCookie } from './utils/getCookie'
 import { uuidv4 } from './utils/uuidv4'
+import NotFound from './components/NotFound'
 
 
 
@@ -63,6 +64,7 @@ const App = (props) => {
             <Route exact path="/successPayment" component={SuccessPayment} />
             <Route exact path="/terms-conditions" component={Termsandconditions} />
             <Route exact path="/contact-us" component={ContactUs} />
+            <Route component={NotFound} />
           </Switch>
         </ScrollToTop>
         <GlobalStyles />

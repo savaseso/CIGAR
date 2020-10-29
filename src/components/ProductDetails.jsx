@@ -7,6 +7,8 @@ import Footer from './Footer'
 import NavBar from './NavBar'
 import Loading from '../utils/Loading'
 import Error from '../utils/Error'
+import StarRatings from './StarRating'
+
 
 
 
@@ -52,17 +54,18 @@ const ProductDetails = (props) => {
         <Inner>
           <ProductImage src={image} alt={name} />
           <div>
-            <h1>Product name:</h1>
-            <p>{name}</p>
+            <h1>{name}</h1>
+            <StarRatings id={props.match.params.id} /><span>({data.products_by_pk.products_ratings.length})</span>
+
             <h1>Product price:</h1>
 
-            <p>{price}</p>
+            <p>${price}</p>
             <h1>Product description:</h1>
 
             <p>{description}</p>
           </div>
         </Inner>
-        <Reviews data={data} props={props} />
+            <Reviews data={data} props={props} />
       </Container>
       <Footer />
     </div>

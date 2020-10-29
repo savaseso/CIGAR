@@ -21,7 +21,7 @@ const Reviews = (props) => {
     const { id } = props.props.match.params
     return (
         <div>
-            <StarRatings id={props.props.match.params.id} /><span>({props.data.products_by_pk.products_ratings.length})</span>
+           {/*  <StarRatings id={props.props.match.params.id} /><span>({props.data.products_by_pk.products_ratings.length})</span> */}
             {
                 product_review ?
                     product_review.map(review => <div key={review.id}>

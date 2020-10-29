@@ -67,7 +67,7 @@ const CartItem = ({ data }) => {
             <ItemContainer>
                 <div onClick={() => removeItem({ variables: { id: `${id}` } })
                     .then(() => toast.dark('Item was deleted'))
-                    .catch((e) => toast.error('Something has happened'))}>
+                    .catch((e) => toast.error('Item was deleted'))}>
                     <TrashIcon />
                 </div>
             </ItemContainer>
